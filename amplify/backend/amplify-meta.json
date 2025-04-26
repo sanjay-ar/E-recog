@@ -1,0 +1,122 @@
+{
+  "providers": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-moody-amplifydev-784f6-authRole",
+      "UnauthRoleArn": "arn:aws:iam::591700125794:role/amplify-moody-amplifydev-784f6-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::591700125794:role/amplify-moody-amplifydev-784f6-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-moody-amplifydev-784f6-deployment",
+      "UnauthRoleName": "amplify-moody-amplifydev-784f6-unauthRole",
+      "StackName": "amplify-moody-amplifydev-784f6",
+      "StackId": "arn:aws:cloudformation:us-east-1:591700125794:stack/amplify-moody-amplifydev-784f6/8b3c5d60-088f-11f0-8c38-0affcf34068b",
+      "AmplifyAppId": "d1xipemfggfq1v"
+    }
+  },
+  "api": {
+    "moody": {
+      "output": {
+        "authConfig": {
+          "additionalAuthenticationProviders": [
+            {
+              "authenticationType": "AWS_IAM"
+            }
+          ],
+          "defaultAuthentication": {
+            "authenticationType": "AMAZON_COGNITO_USER_POOLS",
+            "userPoolConfig": {
+              "userPoolId": "authmoody7b861bc7_userpool_7b861bc7"
+            }
+          }
+        },
+        "GraphQLAPIIdOutput": "knnva5vennborgg2nytuvw2ap4",
+        "GraphQLAPIEndpointOutput": "https://untql2wv5fek3lupj3myx6jk6u.appsync-api.us-east-1.amazonaws.com/graphql"
+      },
+      "providerPlugin": "awscloudformation",
+      "service": "AppSync",
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-moody-amplifydev-784f6-deployment/amplify-cfn-templates/api/cloudformation-template.json",
+        "logicalId": "apimoody"
+      },
+      "lastPushTimeStamp": "2025-04-26T05:20:17.924Z",
+      "lastPushDirHash": "NKJn4aiayBrYNAjHsVMpdhjkCLQ="
+    }
+  },
+  "auth": {
+    "moody7b861bc77b861bc7": {
+      "customAuth": false,
+      "dependsOn": [],
+      "providerPlugin": "awscloudformation",
+      "service": "Cognito",
+      "frontendAuthConfig": {
+        "socialProviders": [],
+        "usernameAttributes": [
+          "EMAIL"
+        ],
+        "signupAttributes": [
+          "EMAIL",
+          "NAME"
+        ],
+        "passwordProtectionSettings": {
+          "passwordPolicyMinLength": 8,
+          "passwordPolicyCharacters": []
+        },
+        "mfaConfiguration": "OFF",
+        "mfaTypes": [
+          "SMS"
+        ],
+        "verificationMechanisms": [
+          "EMAIL"
+        ]
+      },
+      "lastPushTimeStamp": "2025-04-26T05:20:17.927Z",
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-moody-amplifydev-784f6-deployment/amplify-cfn-templates/auth/moody7b861bc77b861bc7-cloudformation-template.json",
+        "logicalId": "authmoody7b861bc77b861bc7"
+      },
+      "output": {
+        "CreatedSNSRole": "arn:aws:iam::591700125794:role/sns7b861bc7784f6-amplifydev",
+        "UserPoolId": "us-east-1_hWsBkuAbN",
+        "AppClientIDWeb": "3g034gn6uo161kmcotlev9vfg3",
+        "AppClientID": "6i5sasc17td0bvke3h4m74aq8k",
+        "IdentityPoolId": "us-east-1:57b1e197-7e5c-4261-97e2-7d65ad7a68f5",
+        "UserPoolArn": "arn:aws:cognito-idp:us-east-1:591700125794:userpool/us-east-1_hWsBkuAbN",
+        "IdentityPoolName": "moody73f8c864_identitypool_73f8c864__amplifydev",
+        "UserPoolName": "moody7b861bc7_userpool_7b861bc7"
+      },
+      "lastPushDirHash": "QcSJpPYklIMBSN+hujq4TLbSagw="
+    },
+    "userPoolGroups": {
+      "service": "Cognito-UserPool-Groups",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [
+        {
+          "category": "auth",
+          "resourceName": "moody7b861bc77b861bc7",
+          "attributes": [
+            "UserPoolId",
+            "AppClientIDWeb",
+            "AppClientID",
+            "IdentityPoolId"
+          ]
+        }
+      ],
+      "lastPushTimeStamp": "2025-04-26T05:20:19.634Z",
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-moody-amplifydev-784f6-deployment/amplify-cfn-templates/auth/userPoolGroups-cloudformation-template.json",
+        "logicalId": "authuserPoolGroups"
+      },
+      "output": {
+        "sanjuGroupRole": "arn:aws:iam::591700125794:role/us-east-1_hWsBkuAbN-sanjuGroupRole"
+      },
+      "lastPushDirHash": "qHqQB4yPiILqm5L+mGInqlvw358="
+    }
+  },
+  "hosting": {
+    "amplifyhosting": {
+      "service": "amplifyhosting",
+      "type": "cicd",
+      "cicd": "cicd",
+      "lastPushTimeStamp": "2025-03-24T09:09:08.270Z"
+    }
+  }
+}

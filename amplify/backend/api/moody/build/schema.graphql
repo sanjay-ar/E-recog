@@ -1,0 +1,541 @@
+type SpeakerVoiceEmotion {
+  id: ID!
+  timestamp: AWSTimestamp!
+  score: Float!
+  neutral: Float!
+  happy: Float!
+  sad: Float!
+  angry: Float!
+  fearful: Float!
+  disgusted: Float!
+  surprised: Float!
+  meetingID: ID
+  _version: Int!
+  _deleted: Boolean
+  _lastChangedAt: AWSTimestamp!
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+  owner: String
+}
+
+type PublicMeetingInfo @aws_iam @aws_cognito_user_pools {
+  id: ID!
+  name: String!
+  startedAt: AWSDateTime!
+  stoppedAt: AWSDateTime!
+  owner: String
+  _version: Int!
+  _deleted: Boolean
+  _lastChangedAt: AWSTimestamp!
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+}
+
+type Rating @aws_iam @aws_cognito_user_pools {
+  id: ID!
+  overallStars: Int!
+  contentStars: Int
+  paceStars: Int
+  owner: String
+  publicmeetinginfoID: ID!
+  _version: Int!
+  _deleted: Boolean
+  _lastChangedAt: AWSTimestamp!
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+}
+
+type Meeting {
+  id: ID!
+  name: String!
+  AudienceFaceExpressions(filter: ModelAudienceFaceExpressionFilterInput, sortDirection: ModelSortDirection, limit: Int, nextToken: String): ModelAudienceFaceExpressionConnection
+  startedAt: AWSDateTime
+  stoppedAt: AWSDateTime
+  createdAt: AWSDateTime
+  updatedAt: AWSDateTime
+  SpeakerVoiceEmotions(filter: ModelSpeakerVoiceEmotionFilterInput, sortDirection: ModelSortDirection, limit: Int, nextToken: String): ModelSpeakerVoiceEmotionConnection
+  _version: Int!
+  _deleted: Boolean
+  _lastChangedAt: AWSTimestamp!
+  PublicMeetingInfo: PublicMeetingInfo @aws_iam @aws_cognito_user_pools
+  owner: String
+}
+
+type AudienceFaceExpression {
+  id: ID!
+  timestamp: AWSTimestamp!
+  score: Float!
+  surprised: Float
+  happy: Float
+  neutral: Float
+  sad: Float
+  disgusted: Float
+  fearful: Float
+  angry: Float
+  meetingID: ID!
+  createdAt: AWSDateTime
+  updatedAt: AWSDateTime
+  _version: Int!
+  _deleted: Boolean
+  _lastChangedAt: AWSTimestamp!
+  owner: String
+}
+
+enum ModelSortDirection {
+  ASC
+  DESC
+}
+
+type ModelSpeakerVoiceEmotionConnection {
+  items: [SpeakerVoiceEmotion]!
+  nextToken: String
+  startedAt: AWSTimestamp
+}
+
+input ModelStringInput {
+  ne: String
+  eq: String
+  le: String
+  lt: String
+  ge: String
+  gt: String
+  contains: String
+  notContains: String
+  between: [String]
+  beginsWith: String
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+  size: ModelSizeInput
+}
+
+input ModelIDInput {
+  ne: ID
+  eq: ID
+  le: ID
+  lt: ID
+  ge: ID
+  gt: ID
+  contains: ID
+  notContains: ID
+  between: [ID]
+  beginsWith: ID
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+  size: ModelSizeInput
+}
+
+input ModelIntInput {
+  ne: Int
+  eq: Int
+  le: Int
+  lt: Int
+  ge: Int
+  gt: Int
+  between: [Int]
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+}
+
+input ModelFloatInput {
+  ne: Float
+  eq: Float
+  le: Float
+  lt: Float
+  ge: Float
+  gt: Float
+  between: [Float]
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+}
+
+input ModelBooleanInput {
+  ne: Boolean
+  eq: Boolean
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+}
+
+input ModelSizeInput {
+  ne: Int
+  eq: Int
+  le: Int
+  lt: Int
+  ge: Int
+  gt: Int
+  between: [Int]
+}
+
+input ModelSpeakerVoiceEmotionFilterInput {
+  id: ModelIDInput
+  timestamp: ModelIntInput
+  score: ModelFloatInput
+  neutral: ModelFloatInput
+  happy: ModelFloatInput
+  sad: ModelFloatInput
+  angry: ModelFloatInput
+  fearful: ModelFloatInput
+  disgusted: ModelFloatInput
+  surprised: ModelFloatInput
+  meetingID: ModelIDInput
+  and: [ModelSpeakerVoiceEmotionFilterInput]
+  or: [ModelSpeakerVoiceEmotionFilterInput]
+  not: ModelSpeakerVoiceEmotionFilterInput
+}
+
+enum ModelAttributeTypes {
+  binary
+  binarySet
+  bool
+  list
+  map
+  number
+  numberSet
+  string
+  stringSet
+  _null
+}
+
+type Query {
+  syncSpeakerVoiceEmotions(filter: ModelSpeakerVoiceEmotionFilterInput, limit: Int, nextToken: String, lastSync: AWSTimestamp): ModelSpeakerVoiceEmotionConnection
+  getSpeakerVoiceEmotion(id: ID!): SpeakerVoiceEmotion
+  listSpeakerVoiceEmotions(filter: ModelSpeakerVoiceEmotionFilterInput, limit: Int, nextToken: String): ModelSpeakerVoiceEmotionConnection
+  syncRatings(filter: ModelRatingFilterInput, limit: Int, nextToken: String, lastSync: AWSTimestamp): ModelRatingConnection
+  getRating(id: ID!): Rating
+  listRatings(filter: ModelRatingFilterInput, limit: Int, nextToken: String): ModelRatingConnection
+  syncMeetings(filter: ModelMeetingFilterInput, limit: Int, nextToken: String, lastSync: AWSTimestamp): ModelMeetingConnection
+  getMeeting(id: ID!): Meeting
+  listMeetings(filter: ModelMeetingFilterInput, limit: Int, nextToken: String): ModelMeetingConnection
+  syncAudienceFaceExpressions(filter: ModelAudienceFaceExpressionFilterInput, limit: Int, nextToken: String, lastSync: AWSTimestamp): ModelAudienceFaceExpressionConnection
+  getAudienceFaceExpression(id: ID!): AudienceFaceExpression
+  listAudienceFaceExpressions(filter: ModelAudienceFaceExpressionFilterInput, limit: Int, nextToken: String): ModelAudienceFaceExpressionConnection
+  getPublicMeetingInfo(id: ID!): PublicMeetingInfo @aws_iam @aws_cognito_user_pools
+  listPublicMeetingInfos(filter: ModelPublicMeetingInfoFilterInput, limit: Int, nextToken: String): ModelPublicMeetingInfoConnection @aws_iam @aws_cognito_user_pools
+  syncPublicMeetingInfos(filter: ModelPublicMeetingInfoFilterInput, limit: Int, nextToken: String, lastSync: AWSTimestamp): ModelPublicMeetingInfoConnection @aws_iam @aws_cognito_user_pools
+}
+
+input CreateSpeakerVoiceEmotionInput {
+  id: ID
+  timestamp: AWSTimestamp!
+  score: Float!
+  neutral: Float!
+  happy: Float!
+  sad: Float!
+  angry: Float!
+  fearful: Float!
+  disgusted: Float!
+  surprised: Float!
+  meetingID: ID
+  _version: Int
+}
+
+input UpdateSpeakerVoiceEmotionInput {
+  id: ID!
+  timestamp: AWSTimestamp
+  score: Float
+  neutral: Float
+  happy: Float
+  sad: Float
+  angry: Float
+  fearful: Float
+  disgusted: Float
+  surprised: Float
+  meetingID: ID
+  _version: Int
+}
+
+input DeleteSpeakerVoiceEmotionInput {
+  id: ID!
+  _version: Int
+}
+
+type Mutation {
+  createSpeakerVoiceEmotion(input: CreateSpeakerVoiceEmotionInput!, condition: ModelSpeakerVoiceEmotionConditionInput): SpeakerVoiceEmotion
+  updateSpeakerVoiceEmotion(input: UpdateSpeakerVoiceEmotionInput!, condition: ModelSpeakerVoiceEmotionConditionInput): SpeakerVoiceEmotion
+  deleteSpeakerVoiceEmotion(input: DeleteSpeakerVoiceEmotionInput!, condition: ModelSpeakerVoiceEmotionConditionInput): SpeakerVoiceEmotion
+  createPublicMeetingInfo(input: CreatePublicMeetingInfoInput!, condition: ModelPublicMeetingInfoConditionInput): PublicMeetingInfo
+  updatePublicMeetingInfo(input: UpdatePublicMeetingInfoInput!, condition: ModelPublicMeetingInfoConditionInput): PublicMeetingInfo
+  deletePublicMeetingInfo(input: DeletePublicMeetingInfoInput!, condition: ModelPublicMeetingInfoConditionInput): PublicMeetingInfo
+  updateRating(input: UpdateRatingInput!, condition: ModelRatingConditionInput): Rating
+  deleteRating(input: DeleteRatingInput!, condition: ModelRatingConditionInput): Rating
+  createMeeting(input: CreateMeetingInput!, condition: ModelMeetingConditionInput): Meeting
+  updateMeeting(input: UpdateMeetingInput!, condition: ModelMeetingConditionInput): Meeting
+  deleteMeeting(input: DeleteMeetingInput!, condition: ModelMeetingConditionInput): Meeting
+  createAudienceFaceExpression(input: CreateAudienceFaceExpressionInput!, condition: ModelAudienceFaceExpressionConditionInput): AudienceFaceExpression
+  updateAudienceFaceExpression(input: UpdateAudienceFaceExpressionInput!, condition: ModelAudienceFaceExpressionConditionInput): AudienceFaceExpression
+  deleteAudienceFaceExpression(input: DeleteAudienceFaceExpressionInput!, condition: ModelAudienceFaceExpressionConditionInput): AudienceFaceExpression
+  createRating(input: CreateRatingInput!, condition: ModelRatingConditionInput): Rating @aws_iam
+}
+
+input ModelSpeakerVoiceEmotionConditionInput {
+  timestamp: ModelIntInput
+  score: ModelFloatInput
+  neutral: ModelFloatInput
+  happy: ModelFloatInput
+  sad: ModelFloatInput
+  angry: ModelFloatInput
+  fearful: ModelFloatInput
+  disgusted: ModelFloatInput
+  surprised: ModelFloatInput
+  meetingID: ModelIDInput
+  and: [ModelSpeakerVoiceEmotionConditionInput]
+  or: [ModelSpeakerVoiceEmotionConditionInput]
+  not: ModelSpeakerVoiceEmotionConditionInput
+}
+
+type Subscription {
+  onCreateSpeakerVoiceEmotion(owner: String!): SpeakerVoiceEmotion @aws_subscribe(mutations: ["createSpeakerVoiceEmotion"])
+  onUpdateSpeakerVoiceEmotion(owner: String!): SpeakerVoiceEmotion @aws_subscribe(mutations: ["updateSpeakerVoiceEmotion"])
+  onDeleteSpeakerVoiceEmotion(owner: String!): SpeakerVoiceEmotion @aws_subscribe(mutations: ["deleteSpeakerVoiceEmotion"])
+  onCreateRating(owner: String!): Rating @aws_subscribe(mutations: ["createRating"])
+  onUpdateRating(owner: String!): Rating @aws_subscribe(mutations: ["updateRating"])
+  onDeleteRating(owner: String!): Rating @aws_subscribe(mutations: ["deleteRating"])
+  onCreateMeeting(owner: String!): Meeting @aws_subscribe(mutations: ["createMeeting"])
+  onUpdateMeeting(owner: String!): Meeting @aws_subscribe(mutations: ["updateMeeting"])
+  onDeleteMeeting(owner: String!): Meeting @aws_subscribe(mutations: ["deleteMeeting"])
+  onCreateAudienceFaceExpression(owner: String!): AudienceFaceExpression @aws_subscribe(mutations: ["createAudienceFaceExpression"])
+  onUpdateAudienceFaceExpression(owner: String!): AudienceFaceExpression @aws_subscribe(mutations: ["updateAudienceFaceExpression"])
+  onDeleteAudienceFaceExpression(owner: String!): AudienceFaceExpression @aws_subscribe(mutations: ["deleteAudienceFaceExpression"])
+  onCreatePublicMeetingInfo(owner: String): PublicMeetingInfo @aws_subscribe(mutations: ["createPublicMeetingInfo"]) @aws_iam @aws_cognito_user_pools
+  onUpdatePublicMeetingInfo(owner: String): PublicMeetingInfo @aws_subscribe(mutations: ["updatePublicMeetingInfo"]) @aws_iam @aws_cognito_user_pools
+  onDeletePublicMeetingInfo(owner: String): PublicMeetingInfo @aws_subscribe(mutations: ["deletePublicMeetingInfo"]) @aws_iam @aws_cognito_user_pools
+}
+
+type ModelPublicMeetingInfoConnection @aws_iam @aws_cognito_user_pools {
+  items: [PublicMeetingInfo]!
+  nextToken: String
+  startedAt: AWSTimestamp
+}
+
+input ModelPublicMeetingInfoFilterInput {
+  id: ModelIDInput
+  name: ModelStringInput
+  startedAt: ModelStringInput
+  stoppedAt: ModelStringInput
+  owner: ModelStringInput
+  and: [ModelPublicMeetingInfoFilterInput]
+  or: [ModelPublicMeetingInfoFilterInput]
+  not: ModelPublicMeetingInfoFilterInput
+}
+
+input CreatePublicMeetingInfoInput {
+  id: ID
+  name: String!
+  startedAt: AWSDateTime!
+  stoppedAt: AWSDateTime!
+  owner: String
+  _version: Int
+}
+
+input UpdatePublicMeetingInfoInput {
+  id: ID!
+  name: String
+  startedAt: AWSDateTime
+  stoppedAt: AWSDateTime
+  owner: String
+  _version: Int
+}
+
+input DeletePublicMeetingInfoInput {
+  id: ID!
+  _version: Int
+}
+
+input ModelPublicMeetingInfoConditionInput {
+  name: ModelStringInput
+  startedAt: ModelStringInput
+  stoppedAt: ModelStringInput
+  and: [ModelPublicMeetingInfoConditionInput]
+  or: [ModelPublicMeetingInfoConditionInput]
+  not: ModelPublicMeetingInfoConditionInput
+}
+
+type ModelRatingConnection {
+  items: [Rating]!
+  nextToken: String
+  startedAt: AWSTimestamp
+}
+
+input ModelRatingFilterInput {
+  id: ModelIDInput
+  overallStars: ModelIntInput
+  contentStars: ModelIntInput
+  paceStars: ModelIntInput
+  owner: ModelStringInput
+  publicmeetinginfoID: ModelIDInput
+  and: [ModelRatingFilterInput]
+  or: [ModelRatingFilterInput]
+  not: ModelRatingFilterInput
+}
+
+input CreateRatingInput {
+  id: ID
+  overallStars: Int!
+  contentStars: Int
+  paceStars: Int
+  owner: String
+  publicmeetinginfoID: ID!
+  _version: Int
+}
+
+input UpdateRatingInput {
+  id: ID!
+  overallStars: Int
+  contentStars: Int
+  paceStars: Int
+  owner: String
+  publicmeetinginfoID: ID
+  _version: Int
+}
+
+input DeleteRatingInput {
+  id: ID!
+  _version: Int
+}
+
+input ModelRatingConditionInput {
+  overallStars: ModelIntInput
+  contentStars: ModelIntInput
+  paceStars: ModelIntInput
+  publicmeetinginfoID: ModelIDInput
+  and: [ModelRatingConditionInput]
+  or: [ModelRatingConditionInput]
+  not: ModelRatingConditionInput
+}
+
+type ModelMeetingConnection {
+  items: [Meeting]!
+  nextToken: String
+  startedAt: AWSTimestamp
+}
+
+input ModelMeetingFilterInput {
+  id: ModelIDInput
+  name: ModelStringInput
+  startedAt: ModelStringInput
+  stoppedAt: ModelStringInput
+  createdAt: ModelStringInput
+  updatedAt: ModelStringInput
+  and: [ModelMeetingFilterInput]
+  or: [ModelMeetingFilterInput]
+  not: ModelMeetingFilterInput
+}
+
+input CreateMeetingInput {
+  id: ID
+  name: String!
+  startedAt: AWSDateTime
+  stoppedAt: AWSDateTime
+  createdAt: AWSDateTime
+  updatedAt: AWSDateTime
+  _version: Int
+  meetingPublicMeetingInfoId: ID
+}
+
+input UpdateMeetingInput {
+  id: ID!
+  name: String
+  startedAt: AWSDateTime
+  stoppedAt: AWSDateTime
+  createdAt: AWSDateTime
+  updatedAt: AWSDateTime
+  _version: Int
+  meetingPublicMeetingInfoId: ID
+}
+
+input DeleteMeetingInput {
+  id: ID!
+  _version: Int
+}
+
+input ModelMeetingConditionInput {
+  name: ModelStringInput
+  startedAt: ModelStringInput
+  stoppedAt: ModelStringInput
+  createdAt: ModelStringInput
+  updatedAt: ModelStringInput
+  and: [ModelMeetingConditionInput]
+  or: [ModelMeetingConditionInput]
+  not: ModelMeetingConditionInput
+}
+
+type ModelAudienceFaceExpressionConnection {
+  items: [AudienceFaceExpression]!
+  nextToken: String
+  startedAt: AWSTimestamp
+}
+
+input ModelAudienceFaceExpressionFilterInput {
+  id: ModelIDInput
+  timestamp: ModelIntInput
+  score: ModelFloatInput
+  surprised: ModelFloatInput
+  happy: ModelFloatInput
+  neutral: ModelFloatInput
+  sad: ModelFloatInput
+  disgusted: ModelFloatInput
+  fearful: ModelFloatInput
+  angry: ModelFloatInput
+  meetingID: ModelIDInput
+  createdAt: ModelStringInput
+  updatedAt: ModelStringInput
+  and: [ModelAudienceFaceExpressionFilterInput]
+  or: [ModelAudienceFaceExpressionFilterInput]
+  not: ModelAudienceFaceExpressionFilterInput
+}
+
+input CreateAudienceFaceExpressionInput {
+  id: ID
+  timestamp: AWSTimestamp!
+  score: Float!
+  surprised: Float
+  happy: Float
+  neutral: Float
+  sad: Float
+  disgusted: Float
+  fearful: Float
+  angry: Float
+  meetingID: ID!
+  createdAt: AWSDateTime
+  updatedAt: AWSDateTime
+  _version: Int
+}
+
+input UpdateAudienceFaceExpressionInput {
+  id: ID!
+  timestamp: AWSTimestamp
+  score: Float
+  surprised: Float
+  happy: Float
+  neutral: Float
+  sad: Float
+  disgusted: Float
+  fearful: Float
+  angry: Float
+  meetingID: ID
+  createdAt: AWSDateTime
+  updatedAt: AWSDateTime
+  _version: Int
+}
+
+input DeleteAudienceFaceExpressionInput {
+  id: ID!
+  _version: Int
+}
+
+input ModelAudienceFaceExpressionConditionInput {
+  timestamp: ModelIntInput
+  score: ModelFloatInput
+  surprised: ModelFloatInput
+  happy: ModelFloatInput
+  neutral: ModelFloatInput
+  sad: ModelFloatInput
+  disgusted: ModelFloatInput
+  fearful: ModelFloatInput
+  angry: ModelFloatInput
+  meetingID: ModelIDInput
+  createdAt: ModelStringInput
+  updatedAt: ModelStringInput
+  and: [ModelAudienceFaceExpressionConditionInput]
+  or: [ModelAudienceFaceExpressionConditionInput]
+  not: ModelAudienceFaceExpressionConditionInput
+}

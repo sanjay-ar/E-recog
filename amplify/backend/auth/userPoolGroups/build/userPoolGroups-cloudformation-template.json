@@ -1,0 +1,109 @@
+{
+  "Description": "Root Stack for AWS Amplify CLI",
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Parameters": {
+    "env": {
+      "Type": "String"
+    },
+    "AuthRoleArn": {
+      "Type": "String"
+    },
+    "UnauthRoleArn": {
+      "Type": "String"
+    },
+    "authmoody7b861bc77b861bc7UserPoolId": {
+      "Type": "String",
+      "Default": "authmoody7b861bc77b861bc7UserPoolId"
+    },
+    "authmoody7b861bc77b861bc7IdentityPoolId": {
+      "Type": "String",
+      "Default": "authmoody7b861bc77b861bc7IdentityPoolId"
+    },
+    "authmoody7b861bc77b861bc7AppClientID": {
+      "Type": "String",
+      "Default": "authmoody7b861bc77b861bc7AppClientID"
+    },
+    "authmoody7b861bc77b861bc7AppClientIDWeb": {
+      "Type": "String",
+      "Default": "authmoody7b861bc77b861bc7AppClientIDWeb"
+    }
+  },
+  "Conditions": {
+    "ShouldNotCreateEnvResources": {
+      "Fn::Equals": [
+        {
+          "Ref": "env"
+        },
+        "NONE"
+      ]
+    }
+  },
+  "Resources": {
+    "sanjuGroup": {
+      "Type": "AWS::Cognito::UserPoolGroup",
+      "Properties": {
+        "Description": "override success",
+        "GroupName": "sanju",
+        "Precedence": 1,
+        "RoleArn": {
+          "Fn::GetAtt": [
+            "sanjuGroupRole",
+            "Arn"
+          ]
+        },
+        "UserPoolId": {
+          "Ref": "authmoody7b861bc77b861bc7UserPoolId"
+        }
+      }
+    },
+    "sanjuGroupRole": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Sid": "",
+              "Effect": "Allow",
+              "Principal": {
+                "Federated": "cognito-identity.amazonaws.com"
+              },
+              "Action": "sts:AssumeRoleWithWebIdentity",
+              "Condition": {
+                "StringEquals": {
+                  "cognito-identity.amazonaws.com:aud": {
+                    "Ref": "authmoody7b861bc77b861bc7IdentityPoolId"
+                  }
+                },
+                "ForAnyValue:StringLike": {
+                  "cognito-identity.amazonaws.com:amr": "authenticated"
+                }
+              }
+            }
+          ]
+        },
+        "RoleName": {
+          "Fn::Join": [
+            "",
+            [
+              {
+                "Ref": "authmoody7b861bc77b861bc7UserPoolId"
+              },
+              "-sanjuGroupRole"
+            ]
+          ]
+        }
+      }
+    }
+  },
+  "Outputs": {
+    "sanjuGroupRole": {
+      "Value": {
+        "Fn::GetAtt": [
+          "sanjuGroupRole",
+          "Arn"
+        ]
+      }
+    }
+  }
+}

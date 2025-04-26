@@ -1,0 +1,20 @@
+{
+    "CreateAPIKey": 0,
+    "AppSyncApiName": "moody",
+    "DynamoDBBillingMode": "PAY_PER_REQUEST",
+    "DynamoDBEnableServerSideEncryption": false,
+    "AuthCognitoUserPoolId": {
+        "Fn::GetAtt": [
+            "authmoody7b861bc77b861bc7",
+            "Outputs.UserPoolId"
+        ]
+    },
+    "authRoleName": {
+        "Ref": "AuthRoleName"
+    },
+    "unauthRoleName": {
+        "Ref": "UnauthRoleName"
+    },
+    "S3DeploymentBucket": "amplify-moody-amplifydev-784f6-deployment",
+    "S3DeploymentRootKey": "amplify-appsync-files/65d2472ab7988febd40381817de9bdc8159ad4e6"
+}
