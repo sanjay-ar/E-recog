@@ -96,12 +96,6 @@ npm run eject
 
 ---
 
-## 📐 Architecture & Data Design
-
-> Insert your system architecture and ER diagram images here (or link to them).
-
----
-
 ## 📘 License
 
 MIT License. Feel free to contribute or fork.
