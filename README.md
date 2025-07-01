@@ -1,4 +1,4 @@
-# 🎭 eRecog – Emotion Recognition for Online Meetings
+# 🎭 eRecog – Emotion Recognition for Online Meetings.
 
 **eRecog** is a real-time emotion recognition web application designed to assist virtual meeting hosts by analyzing participant emotions via facial expressions, vocal tone, and post-meeting ratings. It helps improve meeting quality and engagement by providing live emotional insights using AI.
 
