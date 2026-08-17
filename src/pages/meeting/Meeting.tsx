@@ -5,7 +5,6 @@ import {
   Paper,
   Tab,
   Typography,
-  useTheme,
   makeStyles,
 } from "@material-ui/core";
 import { ArrowBackIos, PlayArrow, Stop } from "@material-ui/icons";
@@ -118,7 +117,6 @@ export default function Meeting(): JSX.Element {
     setTabValue(newValue);
   };
 
-  const theme = useTheme();
   const classes = useStyles();
 
   return (

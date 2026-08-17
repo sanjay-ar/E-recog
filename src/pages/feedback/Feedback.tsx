@@ -1,10 +1,9 @@
-import { Box, Button, Container, Typography, makeStyles, Paper, Fade, Grid, Divider } from "@material-ui/core";
+import { Box, Button, Container, Typography, makeStyles, Paper, Grid, Divider } from "@material-ui/core";
 import { useParams } from "react-router-dom";
 import { useState } from "react";
 import { Send, CheckCircle } from "@material-ui/icons";
 import NotFound from "../NotFound";
 import { useFetchPublicMeeting, useSubmitAnswer } from "./hooks";
-import { useAppSelector } from "../../reduxHooks";
 import Question from "./Question";
 import Loader from "../../components/Loader";
 
@@ -189,15 +188,11 @@ const useStyles = makeStyles((theme) => ({
 export default function Feedback(): JSX.Element {
   const classes = useStyles();
   const { publicMeetingId } = useParams() as any;
-  const [meetingLoading, expired, publicMeeting] =
+  const [meetingLoading, , publicMeeting] =
     useFetchPublicMeeting(publicMeetingId);
-  const [submitLoading, submitted, submitAnswer] = useSubmitAnswer(
+  const [, submitted, submitAnswer] = useSubmitAnswer(
     publicMeeting?.id,
     publicMeeting?.owner
-  );
-  const signedIn: boolean = useAppSelector((state) => state.auth.signedIn);
-  const userId: string | undefined = useAppSelector(
-    (state) => state.auth.user?.id
   );
 
   const [overallStars, setOverallStars] = useState<number | null>(null);
@@ -350,4 +345,3 @@ export default function Feedback(): JSX.Element {
     </Box>
   );
 }
-

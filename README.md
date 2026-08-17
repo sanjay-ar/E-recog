@@ -25,6 +25,45 @@
 
 ---
 
+## 📸 Product Walkthrough
+
+The screens below show the complete workflow, from live multimodal analysis to the completed-session summary. Emotion labels are model inferences rather than definitive assessments of a person's internal state.
+
+### Post-meeting analytics
+
+![Post-meeting E-Recog emotion analytics dashboard](docs/screenshots/post-meeting-analytics.jpg)
+
+*A completed-session dashboard combines an audience emotion radar, speaker voice trends, an emotion timeline, and actions for feedback collection and data export.*
+
+<table>
+  <tr>
+    <td width="50%">
+      <strong>Multi-participant face analysis</strong><br><br>
+      <img src="docs/screenshots/face-analysis-grid.jpg" alt="E-Recog multi-participant facial expression analysis" width="100%"><br>
+      <sub>Face-detection confidence and inferred emotion labels are overlaid on a shared meeting view.</sub>
+    </td>
+    <td width="50%">
+      <strong>Live emotion statistics</strong><br><br>
+      <img src="docs/screenshots/live-emotion-statistics.jpg" alt="E-Recog live audience and speaker emotion trends" width="100%"><br>
+      <sub>Audience facial-expression and speaker voice-emotion signals are visualized over time.</sub>
+    </td>
+  </tr>
+  <tr>
+    <td width="50%">
+      <strong>Voice emotion analysis</strong><br><br>
+      <img src="docs/screenshots/voice-emotion-analysis.jpg" alt="E-Recog aggregated voice emotion predictions" width="100%"><br>
+      <sub>Voice predictions are aggregated at short intervals; the interface states that raw audio is not recorded.</sub>
+    </td>
+    <td width="50%">
+      <strong>Single-subject expression demo</strong><br><br>
+      <img src="docs/screenshots/facial-expression-demo.jpg" alt="E-Recog single-subject facial expression analysis" width="100%"><br>
+      <sub>Per-frame face detection displays inferred emotion confidence scores during a shared video.</sub>
+    </td>
+  </tr>
+</table>
+
+---
+
 ## 🚀 How to Use
 
 1. **Create & Start a Meeting**
@@ -105,6 +144,5 @@ npm run eject
 [![GitHub](https://img.shields.io/badge/GitHub-sanjay--ar-black?style=flat-square&logo=github)](https://github.com/sanjay-ar)
 
 > 💡 *Like this project? Leave a ⭐ and connect with me!*
-
 
 
