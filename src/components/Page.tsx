@@ -1,7 +1,7 @@
-import { Box, Container, IconButton, Link, Tooltip } from "@material-ui/core";
+import { Box, Container, IconButton, Tooltip } from "@material-ui/core";
 import Error from "../error/Error";
 import { Auth } from "aws-amplify";
-import { BugReport, GitHub, Home, PowerSettingsNew } from "@material-ui/icons";
+import { Home, PowerSettingsNew } from "@material-ui/icons";
 import { Link as RouterLink } from "react-router-dom";
 
 type PageProps = {

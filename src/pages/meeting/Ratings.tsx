@@ -5,7 +5,7 @@ import {
   selectActiveMeetingRatings,
   subscribeToActiveMeetingRatings,
 } from "../../meetings/ratingsSlice";
-import { Box, Typography, makeStyles, Paper } from "@material-ui/core";
+import { Typography, makeStyles, Paper } from "@material-ui/core";
 import Loader from "../../components/Loader";
 import { Alert } from "@material-ui/lab";
 import RatingsBarChart from "./RatingsBarChart";

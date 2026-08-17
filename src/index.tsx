@@ -12,7 +12,6 @@ import {
   responsiveFontSizes,
   Theme,
 } from "@material-ui/core";
-import { blueGrey, teal } from "@material-ui/core/colors";
 import App from "./App";
 import { syncUserWithRedux } from "./auth/utils";
 

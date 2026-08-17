@@ -1,4 +1,4 @@
-import { Box, Container, Typography, Fade, Button, Grid, Paper } from "@material-ui/core";
+import { Box, Container, Typography, Fade, Grid, Paper } from "@material-ui/core";
 import CTAButton from "../components/CTAButton";
 import { Link as RouterLink } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
